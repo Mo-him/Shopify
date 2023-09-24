@@ -1,79 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Build Your Custom Chocolate Pack</h1>
-
-    <div>
-        <h2>Available Chocolates:</h2>
-        <label for="chocolate-select">Select Chocolate:</label>
-        <select id="chocolate-select">
-            <option value="1">Chocolate A - $2.00</option>
-            <option value="2">Chocolate B - $2.50</option>
-            <option value="3">Chocolate C - $3.00</option>
-            <!-- Add more chocolate options here -->
-        </select>
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" min="1" max="8" value="1">
-        <button onclick="addToCart()">Add to Cart</button>
-    </div>
-
-    <div>
-        <h2>Your Custom Pack:</h2>
-        <ul id="custom-pack"></ul>
-        <p>Total Price: <span id="total-price">$0.00</span></p>
-    </div>
-
-    <script>
-        // JavaScript logic here
-        let cart = [];
-
-        function addToCart() {
-            const select = document.getElementById("chocolate-select");
-            const quantityInput = document.getElementById("quantity");
-            const selectedChocolate = select.options[select.selectedIndex];
-            const quantity = parseInt(quantityInput.value);
-
-            if (quantity <= 0 || isNaN(quantity)) {
-                alert("Please enter a valid quantity.");
-                return;
-            }
-
-            if (cart.length >= 8) {
-                alert("You've reached the maximum number of items in your custom pack (8).");
-                return;
-            }
-
-            cart.push({
-                name: selectedChocolate.text,
-                price: parseFloat(selectedChocolate.value),
-                quantity: quantity
-            });
-
-            updateCart();
-        }
-
-        function updateCart() {
-            const customPack = document.getElementById("custom-pack");
-            const totalPriceElement = document.getElementById("total-price");
-
-            customPack.innerHTML = "";
-            let totalPrice = 0;
-
-            cart.forEach(item => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${item.name} x ${item.quantity}`;
-                customPack.appendChild(listItem);
-
-                totalPrice += item.price * item.quantity;
-            });
-
-            totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./index.css" />
+    <script
+      src="https://kit.fontawesome.com/81ff3434ff.js"
+      crossorigin="anonymous"
+    >
+      document.querySelector("#nav_cat>div").addEventListener("hover")
     </script>
-</body>
+  </head>
+  <body>
+    <div id="Navbar">
+      <h2>Chocolate Custom Pack</h2>
+      <div id="bagIcon">
+        <a href="./collectionPage.html"
+          ><i class="fas fa-cart-arrow-down"></i
+        ></a>
+        <h3 id="collectionCount"></h3>
+      </div>
+    </div>
+    <div id="ProductContainer"></div>
+  </body>
+
+  <script>
+    let chocolateList = [
+      {
+        id: 1,
+        name: "The Dark Chocolate",
+        description:
+          "A rich and indulgent dark chocolate bar with 70% cocoa content.",
+        price: 139,
+        weight: "100g",
+        image:
+          "https://www.bigbasket.com/media/uploads/p/xxl/40239141-2_1-hersheys-dark-chocolate-bar-rich-taste.jpg",
+      },
+      {
+        id: 2,
+        name: "Milk Chocolate Assortment",
+        description:
+          "A delightful assortment of creamy milk chocolates in various flavors.",
+        price: 299,
+        weight: "150g",
+        image:
+          "https://cococart.in/cdn/shop/products/1CH0877_280x.png?v=1659949373",
+      },
+      {
+        id: 3,
+        name: "White Chocolate Truffles",
+        description:
+          "Smooth and velvety white chocolate truffles with a hint of vanilla.",
+        price: 288,
+        weight: "120g",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOKDGsBHtafZhe8eILQZ5jlsqcly1e5FC5Pw&usqp=CAU",
+      },
+      {
+        id: 4,
+        name: "Hazelnut Chocolate Spread",
+        description:
+          "Creamy hazelnut chocolate spread for spreading on toast or pancakes.",
+        price: 499,
+        weight: "250g",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrUOLB1B_tkXBCbj1nXhTzXr49GFfOhc-0XQ&usqp=CAU",
+      },
+      {
+        id: 5,
+        name: "Dark Chocolate Covered Almonds",
+        description: "Crunchy roasted almonds coated in rich dark chocolate.",
+        price: 249,
+        weight: "200g",
+        image:
+          "https://m.media-amazon.com/images/I/61Zl2MlVvkL.jpg",
+      },
+      {
+        id: 6,
+        name: "Mint Chocolate Truffles",
+        description: "Cool and refreshing mint-infused chocolate truffles.",
+        price: 429.99,
+        weight: "120g",
+        image:
+          "https://cococart.in/cdn/shop/products/pngfile-02_280x.png?v=1659950213",
+      },
+      {
+        id: 7,
+        name: "Caramel-filled Chocolate Squares",
+        description: "Decadent chocolate squares with a gooey caramel center.",
+        price: 399.99,
+        weight: "150g",
+        image:
+          "https://cococart.in/cdn/shop/products/Milkabrokenhazelnutmilkbar100g-01_280x.jpg?v=1659950815",
+      },
+      {
+        id: 8,
+        name: "Fruit and Nut Chocolate Bark",
+        description:
+          "A delightful blend of dried fruits and nuts in milk chocolate.",
+        price: 449.99,
+        weight: "180g",
+        image:
+          "https://cococart.in/cdn/shop/products/1CH0890_3b0e05e7-879a-4c8c-914c-05ed8ec5d924_280x.png?v=1659949690",
+      },
+      {
+        id: 9,
+        name: "Sea Salt Caramel Dark Chocolate",
+        description:
+          "The perfect balance of sea salt and caramel in dark chocolate.",
+        price: 479.99,
+        weight: "120g",
+        image:
+          "https://cococart.in/cdn/shop/products/IMG_2882_f779c98b-6468-405f-94a1-afef515d01b7_280x.jpg?v=1659950252",
+      },
+      {
+        id: 10,
+        name: "Organic Raw Cacao Nibs",
+        description:
+          "Pure and unprocessed cacao nibs for a healthy snack or ingredient.",
+        price: 699.99,
+        weight: "200g",
+        image:
+          "https://cococart.in/cdn/shop/products/1CH0733_bbdd5349-a647-4a1b-82b4-c634b35e5cf8_280x.png?v=1659949816",
+      },
+    ];
+    
+    let collection =JSON.parse(sessionStorage.getItem("ChocolateCollection")) || [];
+    let count = document.getElementById("collectionCount");
+
+    let productContainer = document.getElementById("ProductContainer");
+    chocolateList.forEach((chocolate) => {
+
+
+      let img = document.createElement("img");
+      let btn = document.createElement("button");
+
+
+      let div = document.createElement("div");
+      let price = document.createElement("h4");
+      let name = document.createElement("p");
+
+      btn.innerText = "Add to Cart";
+      img.src = chocolate.image;
+
+      price.innerText = "₹" + chocolate.price;
+      name.innerText = chocolate.name;
+
+      btn.addEventListener("click", () => {
+        addToCollection(chocolate);
+      });
+
+
+
+      div.append(img, name, price, btn);
+      productContainer.append(div);
+    });
+    count.innerText = collection.length;
+
+    function addToCollection(chocolate) {
+
+
+      let flag = false;
+      if (collection.length < 8) {
+        for (let i = 0; i < collection.length; i++) {                    
+          if (collection[i].id == chocolate.id) flag = true;
+        }
+
+        if (!flag) {
+          collection.push(chocolate);
+          sessionStorage.setItem(
+            "ChocolateCollection",
+            JSON.stringify(collection)
+          );
+        } else alert("Aready added");
+      }
+
+
+      else alert('Completed!')
+      count.innerText = collection.length;
+    }
+  </script>
 </html>

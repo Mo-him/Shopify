@@ -1,0 +1,71 @@
+body{
+    margin: 0;
+}
+
+@media screen and (max-width:600px){
+    #collectionContainer{
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media screen and (max-width:300px){
+    #collectionContainer{
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+
+#Navbar{
+    height: 5%;
+    display: flex;
+    background-color: rgb(74, 78, 78);
+    position: sticky;
+    top: 0px;
+    justify-content: space-between;
+    padding: 0% 2%;
+}
+
+#bagIcon{
+    display: flex;
+    align-items: center;
+}
+
+#collectionCount{
+    background-color: rgb(117, 177, 6);
+    border-radius: 500%;
+}
+
+#collectionContainer{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2%;
+    padding: 4%;
+}
+
+#collectionContainer>div{
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: rgba(40, 40, 41, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#collectionContainer img{
+    width: 100%;
+    border-radius: 20px;
+}
+
+#collectionContainer button{
+    background-color: rgb(187, 187, 18);
+    color: white;
+    font-weight: bolder;
+    width: 100%;
+    border-radius: 20px;
+    height: 30px;
+}
+#collectionContainer button:hover{
+    cursor: pointer;
+    background-color: rgba(156, 12, 16, 0.848);
+
+}

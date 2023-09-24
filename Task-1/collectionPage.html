@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>collections</title>
+    <link rel="stylesheet" href="./collections.css" />
+    <script
+      src="https://kit.fontawesome.com/81ff3434ff.js"
+      crossorigin="anonymous"
+    >
+      document.querySelector("#nav_cat>div").addEventListener("hover")
+    </script>
+  </head>
+  <body>
+    <div id="Navbar"></div>
+    <div id="collectionContainer"></div>
+    <h2>Total Price: <span id="totalPrice"></span></h2>
+
+  </body>
+
+
+
+  <script type="module">
+    import Navbar from "./Navbar.js";
+    document.getElementById("Navbar").innerHTML = Navbar();
+  </script>
+
+  <script>
+    let container = document.getElementById("collectionContainer");
+    let combination =JSON.parse(sessionStorage.getItem("ChocolateCollection")) || [];
+    
+    renderList();
+    totalPrice();
+
+    function renderList() {
+      combination =JSON.parse(sessionStorage.getItem("ChocolateCollection")) || [];
+      container.innerHTML = "";
+
+      if (combination.length == 0) {
+
+        let h2 = document.createElement("h2");
+        h2.innerText = "Empty";
+        container.append(h2);
+      }
+      
+      else {
+        combination.forEach((chocolate) => {
+
+          let img = document.createElement("img");
+          let btn = document.createElement("button");
+          let div = document.createElement("div");
+
+
+          let price = document.createElement("h4");
+          let name = document.createElement("p");
+
+          btn.innerText = "Delete";
+          img.src = chocolate.image;
+
+
+          price.innerText = "₹" + chocolate.price;
+          name.innerText = chocolate.name;
+
+          btn.addEventListener("click", () => removeItem(chocolate));
+
+          div.append(img, name, price, btn);
+          container.append(div);
+        });
+      }
+    }
+
+    function totalPrice() {
+
+
+      let total = document.getElementById("totalPrice");
+      let sum = combination.reduce(
+        (accumulator, each) => accumulator + each.price,
+        0
+      );
+
+
+
+      sum = sum.toFixed(2);
+      total.innerHTML = "";
+      total.append("₹ " + sum);
+    }
+
+    function removeItem(chocolate) {
+
+      let newpack = combination.filter((el, i) => el.id != chocolate.id);
+      sessionStorage.setItem("ChocolateCollection", JSON.stringify(newpack));
+      renderList();
+      totalPrice();
+    }
+
+
+  </script>
+</html>
